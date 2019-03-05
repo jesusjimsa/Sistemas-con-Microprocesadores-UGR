@@ -5,24 +5,24 @@
 
 void main(){
 	int contador = 0;
-	
+
 	set_tris_a(0xFF);	// Configurar pines
 	set_tris_b(0xF0);
-	
+
 	output_b(contador);
-	
+
 	while(TRUE){
 		while(input(PIN_A0) && input(PIN_A1)){}
-		
+
 		if(!input(PIN_A0)){
 			contador++;
 		}
 		else{
 			contador--;
 		}
-		
+
 		output_b(contador);
-	   
+
 		while(!(input(PIN_A0) && input(PIN_A1))){}
 	}
 }

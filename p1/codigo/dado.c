@@ -5,21 +5,21 @@
 
 void main(){
 	int contador = 0;
-	
-	setup_timer_0(RTCC_INTERNAL | RTCC_DIV_2);	// Inicializar temporizador para conseguir números "aleatorios"
-	
+
+	setup_timer_0(RTCC_INTERNAL | RTCC_DIV_2);	// Inicializar temporizador para conseguir nï¿½meros "aleatorios"
+
 	set_tris_a(0xFF);	// Configurar pines
 	set_tris_b(0xF0);
-	
+
 	output_b(contador);
-	
+
 	while(TRUE){
 		while(input(PIN_A0) && input(PIN_A1)){}
-		
+
 		contador = (get_timer0() % 6) + 1;
-		
+
 		output_b(contador);
-	   
+
 		while(!(input(PIN_A0) && input(PIN_A1))){}
 	}
 }
