@@ -18,6 +18,7 @@
 #define ATACAR 6
 #define EMPUJAR_ADELANTE 7
 #define EMPUJAR_ATRAS 8
+#define ATACAR_ATRAS 9
 
 int aux = 0, estado, tipo, vel, duracion;
 
@@ -197,7 +198,7 @@ void main() {
 
 					if (!IN3) {
 						led_off();
-						estado = BUSQUEDA;
+						estado = ATACAR;
 						urgente = 0;
 					}
 					break;
@@ -209,7 +210,7 @@ void main() {
 
 					if (!IN4) {
 						led_off();
-						estado = BUSQUEDA;
+						estado = ATACAR_ATRAS;
 						urgente = 0;
 					}
 					break;
@@ -282,6 +283,40 @@ void main() {
 					duracion = 130;
 					estado = BUSQUEDA;
 					urgente=0;
+
+					if (IN3) {
+						estado = EMPUJAR_ADELANTE;
+						urgente = 3;
+					}
+					else if (IN4) {
+						estado = EMPUJAR_ATRAS;
+						urgente = 3;
+					}
+
+					break;
+				case ATACAR_ATRAS:
+					tipo = ATR;
+					vel=255;
+					duracion=255;
+					led_on();
+
+					if (!IN1 && !IN2){
+						led_off();
+						estado=ESQUINA; // esquina
+						urgente = 1;
+					}
+					else {
+						if (!IN1) {
+							led_off();
+							estado=ATRAS_NEGRO; // atras negro
+							urgente=1;
+						}
+						else if (!IN2) {
+							led_off();
+							estado=DELANTE_NEGRO; // delante negro
+							urgente=1;
+						}
+					}
 
 					if (IN3) {
 						estado = EMPUJAR_ADELANTE;
